@@ -1,10 +1,10 @@
+
 name: Update DuckDNS
 
 on:
   schedule:
-    
-cron: "/5 * * *"
-workflow_dispatch:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -13,13 +13,16 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      
-name: Update DuckDNS IP
-      env:
-        DUCKDNS_DOMAIN: ${{ secrets.DUCKDNS_DOMAIN }}
-        DUCKDNS_TOKEN: ${{ secrets.DUCKDNS_TOKEN }}
-      run: |
-        response=$(curl -fsS --get \--data-urlencode "domains=$DUCKDNS_DOMAIN" \--data-urlencode "token=$DUCKDNS_TOKEN" \--data-urlencode "verbose=true" \https://www.duckdns.org/update)
+      - name: Update DuckDNS IP
+        env:
+          DUCKDNS_DOMAIN: ${{ secrets.DUCKDNS_DOMAIN }}
+          DUCKDNS_TOKEN: ${{ secrets.DUCKDNS_TOKEN }}
+        run: |
+          response=$(curl -fsS --get \
+            --data-urlencode "domains=$DUCKDNS_DOMAIN" \
+            --data-urlencode "token=$DUCKDNS_TOKEN" \
+            --data-urlencode "verbose=true" \
+            https://www.duckdns.org/update)
 
           echo "$response"
 
