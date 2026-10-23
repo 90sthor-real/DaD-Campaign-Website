@@ -43,13 +43,14 @@ section{display:none}section.on{display:block}
 h2.t{font-size:2rem;color:var(--brass);margin-bottom:6px}
 .sub{color:var(--mute);margin:0 0 22px;font-style:italic}
 details{background:var(--panel);border:2px solid var(--line);border-radius:6px 18px 6px 18px;margin-bottom:12px}
-summary{cursor:pointer;padding:14px 18px;font-family:var(--hf);list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary{cursor:pointer;padding:14px 18px;font-family:var(--hf);list-style:none;display:grid;grid-template-columns:7rem 1fr 1.5rem;align-items:center;gap:10px}
+summary small{color:var(--mute);font-family:var(--bf);font-size:.9rem}
 summary::after{content:'+';color:var(--brass);font-size:1.4rem;line-height:1}
 details[open] summary::after{content:'\2212'}
 details .body{padding:0 18px 16px;max-width:42em}
 details .body p{margin:.4em 0 .8em}
 .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
-.card{background:var(--panel);border:2px solid var(--line);border-radius:6px 22px 6px 22px;padding:18px;text-align:center;transition:transform .15s,border-color .15s}
+.card{background:var(--panel);border:2px solid var(--line);border-radius:6px 22px 6px 22px;padding:18px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;transition:transform .15s,border-color .15s}
 .card:hover{transform:translateY(-4px) rotate(-1deg);border-color:var(--brass)}
 .card svg{width:84px;height:84px}
 .mapbox{overflow:auto;border:3px solid var(--brass);border-radius:6px 22px 6px 22px;max-height:75vh;background:var(--panel)}
@@ -78,13 +79,13 @@ dialog h2{color:var(--brass);font-size:1.7rem}
 .rsvp button{border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:6px 14px}
 .rsvp button.in{border-color:var(--brass);background:var(--brass);color:#1a1a10}
 .campgrid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));margin-top:16px}
-.camp{text-align:left;background:var(--panel);border:2px solid var(--line);border-radius:6px 22px 6px 22px;padding:18px;display:block;transition:transform .15s,border-color .15s}
+.camp{text-align:left;background:var(--panel);border:2px solid var(--line);border-radius:6px 22px 6px 22px;padding:18px;position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;transition:transform .15s,border-color .15s}
 .camp:hover{transform:translateY(-4px);border-color:var(--brass)}
 .camp h3{color:var(--brass);font-size:1.3rem;margin:8px 0 4px}
 .camp small{color:var(--mute)}
 .camp p{margin:8px 0 0}
 .camp.feat{grid-column:1/-1;border:3px solid var(--ember)}
-.camp .ball{float:right;width:64px;height:64px;margin-left:12px}
+.camp .ball{position:absolute;top:16px;right:16px;width:64px;height:64px}
 .camp .live{display:block;color:var(--ember);font-weight:700;margin-top:6px}
 .badge{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;border:1px solid var(--brass);color:var(--brass)}
 .camp:not(.completed) .badge{background:var(--brass);color:#1a1a10;font-weight:700}
@@ -260,7 +261,7 @@ $('#maptab').style.display=C.map?'':'none';
 if(C.map){$('#mapimg').src=C.map;$('#regs').innerHTML=C.regions.map(r=>`<div class="reg" style="--rc:${r.c}"><b>${r.n}</b>${r.here?' <small>(party is here)</small>':''}<br>${r.d}</div>`).join('')}else if($('#map').classList.contains('on'))go('home');$('#pkpanel').style.display=C.id==='pokemon'?'none':'';
 // Story
 $('#lastth').textContent=done?'How it ended':'Where we left off';$('#nextth').textContent=done?'The finale':'Next gathering';$('#lastline').textContent=C.leftOff||CAMPAIGN.chapters[0].b[CAMPAIGN.chapters[0].b.length-1];
-$('#chapters').innerHTML=CAMPAIGN.chapters.map((c,i)=>`<details${i===0?' open':''}><summary><span>${c.t}</span><small style="font-family:var(--bf);color:var(--mute)">${c.s}</small></summary><div class="body">${c.b.map(p=>`<p>${p}</p>`).join('')}</div></details>`).join('');
+$('#chapters').innerHTML=CAMPAIGN.chapters.map((c,i)=>`<details${i===0?' open':''}><summary><small>${c.s}</small><span>${c.t}</span></summary><div class="body">${c.b.map(p=>`<p>${p}</p>`).join('')}</div></details>`).join('');
 
 // Cast
 const initials=n=>n.split(' ').map(w=>w[0]).join('');
